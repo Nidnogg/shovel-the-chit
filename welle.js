@@ -10,7 +10,6 @@ const track = audioContext.createMediaElementSource(audioElement);
 
 track.connect(audioContext.destination);
 
-
 // select our play button
 const playButton = document.querySelector('button');
 
@@ -35,3 +34,13 @@ playButton.addEventListener('click', function() {
 audioElement.addEventListener('ended', () => {
   playButton.dataset.playing = 'false';
 }, false);
+
+// Canvas shit!
+const createCanvas = () => {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'green';
+  ctx.fillRect(10, 10, 150, 100);
+}
+
+createCanvas();
