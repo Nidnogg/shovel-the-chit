@@ -42,7 +42,6 @@ const ctx = canvas.getContext('2d');
 
 const initAnalyzer = () => {
   track.connect(analyser);
-  
   analyser.fftSize = 2048;
 }
 
@@ -50,17 +49,19 @@ initAnalyzer();
 
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
-analyser.getByteFrequencyData(dataArray);
 
 //test stuff
-var WIDTH = 300;
-var HEIGHT = 300;
+var WIDTH = 350;
+var HEIGHT = 100;
 ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
+//Oscilloscope Drawing Tool
 function draw() {
   var drawVisual = requestAnimationFrame(draw);
   analyser.getByteTimeDomainData(dataArray);
-  ctx.fillStyle = 'rgb(200, 200, 200)';
+
+  ctx.fillStyle = 'rgb(200,200,200)';
+  // ctx.fillStyle = '#FCF9DC';
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.lineWidth = 2;
   ctx.strokeStyle = 'rgb(0, 0, 0)';
@@ -88,4 +89,3 @@ function draw() {
 
 draw();
 //finish test
-console.log("batata");
