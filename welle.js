@@ -57,8 +57,8 @@ const shuffledColors = shuffle(colorsArray); //shuffles colors every refresh
 //Main draw function for bar graphs
 function draw(){
     var posX = 300; //WARNING: after fixing CSS, change this to 0
-    var posY = 300;
-    var sliceWidth = bufferLength/16;
+    var posY = 600;
+    var sliceWidth = bufferLength/16; 
 
     // var drawVisual = requestAnimationFrame(draw);
 
@@ -72,7 +72,7 @@ function draw(){
         for(let j = 0; j < sliceWidth; j++){
             sum += dataArray[j + i * sliceWidth];
         }
-        sum = sum/10;
+        sum = sum/sliceWidth;
 
         ctxCanvas.fillStyle = colorsArray[i];
         ctxCanvas.fillRect(i * 33 + posX, 100 + posY, 30, -sum);
