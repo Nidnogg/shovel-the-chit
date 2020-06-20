@@ -50,7 +50,8 @@ canvasW = canvas.width;
 canvasH = canvas.height;
 
 const ctxCanvas = canvas.getContext('2d');
-ctxCanvas.FillStyle = '#3D3C35';
+const colorsArray = ['#4A4940', '#33322C', '#3D3C35', '#8A8878', '#C9C6AF', '#545445', '#464A3D', '#545145', '#4A463D', '#3A3D32'];
+const shuffledColors = shuffle(colorsArray); //shuffles colors every refresh
 
 //Main draw function for bar graphs
 function draw(){
@@ -58,19 +59,37 @@ function draw(){
     var posY = 300;
 
     // var drawVisual = requestAnimationFrame(draw);
-    
+
     analyser.getByteTimeDomainData(dataArray);
 
     ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
 
     //10 rectangle loop
     for(let i = 0; i < 10; i++) {
+        ctxCanvas.fillStyle = colorsArray[i];
         ctxCanvas.fillRect(i * 55 + posX, 100 + posY, 50, -100 - Math.random()*100);
     }
 }
 setInterval(draw, 100); //calls draw every X ms
 
-
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+}
 
 
 
