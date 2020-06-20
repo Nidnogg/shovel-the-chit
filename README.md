@@ -1,5 +1,5 @@
-# react-boiler-parcel
-A barebones React app for use as a template.
+# welle
+A barebones Audio visualizer app.
 
 ## Usage
 
@@ -9,8 +9,6 @@ A barebones React app for use as a template.
 
 ## Dependencies 
 
-Parcel, React, ReactDOM
+None! 
 
-## Misc 
 
-```npx babel-upgrade``` may be necessary for the latest Babel version to work (2019)
