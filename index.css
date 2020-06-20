@@ -59,12 +59,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700; /* or 300, test */
 }
 
-.header {
-  position: absolute;
-  font-size: 3em;
-  margin-top: 20px;
-}
-
 p {
   font-family: 'Cabin', sans-serif;
   font-size: 1em;
@@ -88,4 +82,33 @@ canvas {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+h3 {
+  position: absolute;
+  text-align: center;
+  font-size: 2em;
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+/* button stuff */
+
+button {
+  background: none;
+	color: inherit;
+	border: none;
+}
+
+
+#play_button {
+  width: 60px;
+  height: auto;
+}
+
+#play_button_div {
+  position: absolute;
+  left: 20px;
+  top: 80px;
+
 }

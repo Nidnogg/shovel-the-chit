@@ -7,12 +7,39 @@
   <title>welle</title>
 </head>
 <body>
-  <section>
-    <h3 classname="header">all I ever wanted</h3>
+  <section className="main">
+    <h3 classname="header">welle</h3>
     <audio crossorigin="anonymous" type="audio/mpeg" src="https://firebasestorage.googleapis.com/v0/b/cloudtop-nidnogg.appspot.com/o/audio%2Fsong_test.mp3?alt=media&token=ccf6f882-47f5-46cb-9836-732bc871ee9a">Failed to load audio</audio>
-    <button data-playing="false" role="switch" aria-checked="false">
-      <span>Play/Pause</span>
-    </button> 
+    <div id="play_button_div">
+      <button data-playing="false" role="switch" aria-checked="false">
+        <svg id=play_button xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90">
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #3d3c35;
+              }
+        
+              .cls-2 {
+                fill: #fcf9dc;
+              }
+        
+              .cls-3 {
+                fill: #707070;
+                font-size: 20px;
+                font-family: SegoeUI, Segoe UI;
+              }
+            </style>
+          </defs>
+          <g id="Group_1" data-name="Group 1" transform="translate(-735 -203)">
+            <rect id="Rectangle_1" data-name="Rectangle 1" class="cls-1" width="90" height="90" transform="translate(735 203)"/>
+            <rect id="Rectangle_2" data-name="Rectangle 2" class="cls-2" width="34" height="34" transform="translate(784 255)"/>
+            <path id="Path_1" data-name="Path 1" class="cls-2" d="M0,0,38,19h0L0,38Z" transform="translate(742 212)"/>
+            <text id="play" class="cls-3" transform="translate(780 215)"><tspan x="0" y="22">play</tspan></text>
+            <text id="pause" class="cls-3" transform="translate(740 260)"><tspan x="0" y="22">pau</tspan></text>
+          </g>
+        </svg> 
+      </button> 
+    </div>
     <canvas id="canvas"></canvas>
   </section>
   
