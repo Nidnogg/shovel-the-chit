@@ -8,6 +8,12 @@ const audioElement = document.querySelector('audio');
 // pass it into the audio context
 const track = audioContext.createMediaElementSource(audioElement);
 var analyser = audioContext.createAnalyser();
+track.connect(analyser);
+analyser.fftSize = 2048;
+
+//init dataArray for analysing
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
 
 track.connect(audioContext.destination);
 
@@ -44,11 +50,36 @@ canvasW = canvas.width;
 canvasH = canvas.height;
 
 const ctxCanvas = canvas.getContext('2d');
-if (canvas.getContext) {
-  ctxCanvas.fillStyle = 'rgb(200,200,200)';
-  //fillRect(x pos, y pos, rectangle width, rectangle height)
-  ctxCanvas.fillRect(0, 0, canvas.width, canvas.height);
+ctxCanvas.FillStyle = '#3D3C35';
+
+//Main draw function for bar graphs
+function draw(){
+    var posX = 300; //WARNING: after fixing CSS, change this to 0
+    var posY = 300;
+
+    // var drawVisual = requestAnimationFrame(draw);
+    
+    analyser.getByteTimeDomainData(dataArray);
+
+    ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+
+    //10 rectangle loop
+    for(let i = 0; i < 10; i++) {
+        ctxCanvas.fillRect(i * 55 + posX, 100 + posY, 50, -100 - Math.random()*100);
+    }
 }
+setInterval(draw, 100); //calls draw every X ms
+
+
+
+
+
+
+// if (canvas.getContext) {
+  //ctxCanvas.fillStyle = 'rgb(200,200,200)';
+  //fillRect(x pos, y pos, rectangle width, rectangle height)
+  //ctxCanvas.fillRect(0, 0, canvas.width, canvas.height);
+// }
 /*
 function init()
 {
