@@ -38,54 +38,32 @@ audioElement.addEventListener('ended', () => {
 
 
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+canvas.width = window.screen.availWidth; //document.body.clientWidth; 
+canvas.height = window.screen.availHeight; //document.body.clientHeight;
+canvasW = canvas.width;
+canvasH = canvas.height;
 
-const initAnalyzer = () => {
-  track.connect(analyser);
-  analyser.fftSize = 2048;
+const ctxCanvas = canvas.getContext('2d');
+if (canvas.getContext) {
+  ctxCanvas.fillStyle = 'rgb(200,200,200)';
+  //fillRect(x pos, y pos, rectangle width, rectangle height)
+  ctxCanvas.fillRect(0, 0, canvas.width, canvas.height);
 }
+/*
+function init()
+{
+    canvas = document.getElementById("mainCanvas");
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+    canvasW = canvas.width;
+    canvasH = canvas.height;
 
-initAnalyzer();
-
-var bufferLength = analyser.frequencyBinCount;
-var dataArray = new Uint8Array(bufferLength);
-
-//test stuff
-var WIDTH = 350;
-var HEIGHT = 100;
-ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-//Oscilloscope Drawing Tool
-function draw() {
-  var drawVisual = requestAnimationFrame(draw);
-  analyser.getByteTimeDomainData(dataArray);
-
-  ctx.fillStyle = 'rgb(200,200,200)';
-  // ctx.fillStyle = '#FCF9DC';
-  ctx.fillRect(0, 0, WIDTH, HEIGHT);
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = 'rgb(0, 0, 0)';
-  ctx.beginPath();
-
-  var sliceWidth = WIDTH * 1.0 / bufferLength;
-  var x = 0;
-
-  for(var i = 0; i < bufferLength; i++) {
-   
-    var v = dataArray[i] / 128.0;
-    var y = v * HEIGHT/2;
-
-    if(i === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
+    if( canvas.getContext )
+    {
+        setup();
+        setInterval( run , 33 );
     }
+}
+*/
 
-    x += sliceWidth;
-  }
-  ctx.lineTo(canvas.width, canvas.height/2);
-  ctx.stroke();
-};
 
-draw();
-//finish test
