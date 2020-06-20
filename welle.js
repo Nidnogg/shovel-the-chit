@@ -9,7 +9,7 @@ const audioElement = document.querySelector('audio');
 const track = audioContext.createMediaElementSource(audioElement);
 var analyser = audioContext.createAnalyser();
 track.connect(analyser);
-analyser.fftSize = 2048;
+analyser.fftSize = 256;
 
 //init dataArray for analysing
 var bufferLength = analyser.frequencyBinCount;
@@ -50,27 +50,35 @@ canvasW = canvas.width;
 canvasH = canvas.height;
 
 const ctxCanvas = canvas.getContext('2d');
-const colorsArray = ['#4A4940', '#33322C', '#3D3C35', '#8A8878', '#C9C6AF', '#545445', '#464A3D', '#545145', '#4A463D', '#3A3D32'];
+const colorsArray = ['#4A4940', '#33322C', '#3D3C35', '#8A8878', '#C9C6AF', '#545445', '#464A3D', '#545145',
+                     '#4A463D', '#3A3D32', '#45394A', '#392F3D', '#2F2C3D', '#BC9BC9', '#2D404A', '#4A4926'];
 const shuffledColors = shuffle(colorsArray); //shuffles colors every refresh
 
 //Main draw function for bar graphs
 function draw(){
     var posX = 300; //WARNING: after fixing CSS, change this to 0
     var posY = 300;
+    var sliceWidth = bufferLength/16;
 
     // var drawVisual = requestAnimationFrame(draw);
 
-    analyser.getByteTimeDomainData(dataArray);
-
     ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+    analyser.getByteFrequencyData(dataArray);
 
-    //10 rectangle loop
-    for(let i = 0; i < 10; i++) {
+    //16 rectangle loop
+    for(let i = 0; i < 16; i++) {
+
+        var sum = 0;
+        for(let j = 0; j < sliceWidth; j++){
+            sum += dataArray[j + i * sliceWidth];
+        }
+        sum = sum/10;
+
         ctxCanvas.fillStyle = colorsArray[i];
-        ctxCanvas.fillRect(i * 55 + posX, 100 + posY, 50, -100 - Math.random()*100);
+        ctxCanvas.fillRect(i * 33 + posX, 100 + posY, 30, -sum);
     }
 }
-setInterval(draw, 100); //calls draw every X ms
+setInterval(draw, 16); //calls draw every X ms
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
