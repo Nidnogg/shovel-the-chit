@@ -9,7 +9,7 @@
   --base-color-s4: #3D3C35;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Josefin+Sans:ital,wght@0,300;0,700;1,300;1,700&family=Karla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
 /*
     font-family: 'Cabin', sans-serif;
 
@@ -55,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.6;
@@ -67,7 +67,7 @@ li {
 
 body {
   background-color: var(--base-color);
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   color: var(--base-color-s4);
   text-align: center;
   box-sizing: border-box;
@@ -78,7 +78,7 @@ body {
 canvas {
   position: absolute;
   bottom: 0;
-  left: 30%;
+  left: calc(50% - 262.5px);
   z-index: -1;
 }
 

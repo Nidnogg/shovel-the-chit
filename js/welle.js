@@ -48,7 +48,8 @@ const canvas = document.getElementById('canvas');
 canvas.width = window.screen.availWidth; //document.body.clientWidth; 
 canvas.height = window.screen.availHeight; //document.body.clientHeight;
 */
-canvas.width = window.screen.availWidth; //document.body.clientWidth; 
+//canvas.width = window.screen.availWidth; //document.body.clientWidth; 
+canvas.width = 525;
 canvas.height = 255;
 canvasW = canvas.width;
 canvasH = canvas.height;
