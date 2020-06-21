@@ -11,12 +11,16 @@ var analyser = audioContext.createAnalyser();
 track.connect(analyser);
 analyser.fftSize = 256;
 
-//init dataArray for analysing
+//init dataArray for analysing and displaying audio freqs
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
 
-track.connect(audioContext.destination);
+const gainNode = audioContext.createGain();
+gainNode.connect(audioContext.destination);
 
+track.connect(gainNode);
+
+gainNode.gain.value = 1.0;
 // select our play button
 const playButton = document.querySelector('button');
 
@@ -42,7 +46,72 @@ audioElement.addEventListener('ended', () => {
   playButton.dataset.playing = 'false';
 }, false);
 
+// select our volume button
+const volumeValue = document.getElementById('volume');
+const volumeDial = document.getElementById('volume_dial');
+const volumeSvg = document.getElementById('volume_svg');
 
+const moveSlider = e => {
+    //console.log((e.target.value * 10.0)/360.0);
+
+    if(audioContext) { 
+        let scaledVolume = (e.target.value * 10.0)/360.0;
+        gainNode.gain.value = scaledVolume;
+    }
+}
+
+volumeDial.addEventListener('input', moveSlider);
+
+let svgMouseDowned = false; 
+
+const startSvgRotation = () => {
+    svgMouseDowned = true;
+    var x = event.clientX;     // Get the horizontal coordinate
+    var y = event.clientY;     // Get the vertical coordinate
+    var coor = "X coords: " + x + ", Y coords: " + y;
+    console.log(coor);
+    console.log(svgMouseDowned);
+    // rotation
+    //let deg = volumeDial.
+    //volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
+    /* volumeSvg.style.webkitTransform = 'rotate('+deg+'deg)'; 
+     volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)'; 
+     volumeSvg.style.msTransform     = 'rotate('+deg+'deg)'; 
+     volumeSvg.style.oTransform      = 'rotate('+deg+'deg)'; */
+    //console.log(document.body.clientWidth); 
+    //console.log(document.body.clientHeight);
+}
+
+volumeSvg.addEventListener("mousedown", startSvgRotation);
+
+
+const doSvgRotation = () => {
+
+    if(svgMouseDowned == true) {
+        var x = event.clientX;     // Get the horizontal coordinate
+        var y = event.clientY;     // Get the vertical coordinate
+        //var coor = "X coords: " + x + ", Y coords: " + y;  
+        const radCoords = Math.atan2(x, y);      // Get the arc
+        let deg = radCoords * (180 / Math.PI);
+        console.log(deg);
+
+    } 
+}
+
+const stopSvgRotation = () => {
+
+    if(svgMouseDowned == true) {
+        svgMouseDowned = false;
+    } else {
+        //console.log('nothing to do with svg');
+    }
+    svgMouseDowned = false;
+}
+document.addEventListener('mousemove', doSvgRotation);
+document.addEventListener('mouseup', stopSvgRotation);
+
+
+// main canvas function
 const canvas = document.getElementById('canvas');
 /*
 canvas.width = window.screen.availWidth; //document.body.clientWidth; 

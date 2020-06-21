@@ -108,19 +108,22 @@ button:active {
   height: auto;
 }
 
-#buttons_column {
+#controls {
   position: absolute;
   left: 20px;
   top: 90px;
 }
 
-#volume_button {
+#volume_dial {
   width: 60px;
   height: auto;
 }
 
-#volume_button_div {
-  position: absolute;
-  left: 20px;
-  top: 80px;
+#volume_svg {
+  width: 60px;
+  height: auto;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
