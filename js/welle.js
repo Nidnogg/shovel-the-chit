@@ -50,6 +50,7 @@ audioElement.addEventListener('ended', () => {
 const volumeValue = document.getElementById('volume');
 const volumeDial = document.getElementById('volume_dial');
 const volumeSvg = document.getElementById('volume_svg');
+const volumeSvgDiv = document.getElementById('volume_svg_div');
 
 const moveSlider = e => {
     //console.log((e.target.value * 10.0)/360.0);
@@ -66,11 +67,7 @@ let svgMouseDowned = false;
 
 const startSvgRotation = () => {
     svgMouseDowned = true;
-    var x = event.clientX;     // Get the horizontal coordinate
-    var y = event.clientY;     // Get the vertical coordinate
-    var coor = "X coords: " + x + ", Y coords: " + y;
-    console.log(coor);
-    console.log(svgMouseDowned);
+    //console.log(svgMouseDowned);
     // rotation
     //let deg = volumeDial.
     //volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
@@ -88,12 +85,29 @@ volumeSvg.addEventListener("mousedown", startSvgRotation);
 const doSvgRotation = () => {
 
     if(svgMouseDowned == true) {
-        var x = event.clientX;     // Get the horizontal coordinate
-        var y = event.clientY;     // Get the vertical coordinate
-        //var coor = "X coords: " + x + ", Y coords: " + y;  
-        const radCoords = Math.atan2(x, y);      // Get the arc
-        let deg = radCoords * (180 / Math.PI);
+
+        // attempting to fix from fiddle http://jsfiddle.net/JqBZb/
+        var mouse_x = event.clientX;     // Get the horizontal mouse coordinate
+        var mouse_y = event.clientY;     // Get the vertical mouse coordinate
+        let center_x = volumeSvgDiv.offsetLeft + volumeSvgDiv.offsetWidth / 2;
+        let center_y = volumeSvgDiv.offsetTop + volumeSvgDiv.offsetHeight / 2;
+        var radCoords = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+        var deg = (radCoords * (180 / Math.PI) * -1) + 90; 
+        console.log(center_x);
+        console.log(center_y);
+        
+        volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
+        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
+        /* initial solution
+        const radCoords = Math.atan2(x, y);      // Maps X and Y coordinates to rad
+        let deg = radCoords * (180 / Math.PI);   // Converts rad to degrees
         console.log(deg);
+        volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
+        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
+        volumeSvg.style.webkitTransform = 'rotate('+deg+'deg)'; 
+        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)'; 
+        volumeSvg.style.msTransform     = 'rotate('+deg+'deg)'; 
+        volumeSvg.style.oTransform      = 'rotate('+deg+'deg)'; */
 
     } 
 }
