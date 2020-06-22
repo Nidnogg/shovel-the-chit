@@ -87,14 +87,15 @@ const doSvgRotation = () => {
     if(svgMouseDowned == true) {
 
         // attempting to fix from fiddle http://jsfiddle.net/JqBZb/
-        var mouse_x = event.clientX;     // Get the horizontal mouse coordinate
-        var mouse_y = event.clientY;     // Get the vertical mouse coordinate
-        let center_x = volumeSvgDiv.offsetLeft + volumeSvgDiv.offsetWidth / 2;
+        let mouse_x = event.clientX;     // Get the horizontal mouse coordinate
+        let mouse_y = event.clientY;     // Get the vertical mouse coordinate
+
+        let center_x = volumeSvgDiv.offsetLeft + volumeSvgDiv.offsetWidth / 2; 
         let center_y = volumeSvgDiv.offsetTop + volumeSvgDiv.offsetHeight / 2;
-        var radCoords = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-        var deg = (radCoords * (180 / Math.PI) * -1) + 90; 
-        console.log(center_x);
-        console.log(center_y);
+        let radCoords = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+        let deg = (radCoords * (180 / Math.PI) * -1) + 90; 
+
+        console.log(radCoords);
         
         volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
         volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
