@@ -125,3 +125,7 @@ button:active {
   transform: rotate(200deg);
   transition: all 0.1333s;
 }
+
+#volume_svg_div {
+  margin-top: 20px;
+}

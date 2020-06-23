@@ -48,36 +48,13 @@ audioElement.addEventListener('ended', () => {
 
 // select our volume button
 const volumeValue = document.getElementById('volume');
-const volumeDial = document.getElementById('volume_dial');
 const volumeSvg = document.getElementById('volume_svg');
 const volumeSvgDiv = document.getElementById('volume_svg_div');
-
-const moveSlider = e => {
-    //console.log((e.target.value * 10.0)/360.0);
-
-    if(audioContext) { 
-        let scaledVolume = (e.target.value * 10.0)/360.0;
-        gainNode.gain.value = scaledVolume;
-    }
-}
-
-volumeDial.addEventListener('input', moveSlider);
 
 let svgMouseDowned = false; 
 
 const startSvgRotation = () => {
-    //console.log(`startSvGRotation mouse downed ${svgMouseDowned}`)
     svgMouseDowned = true;
-    //console.log(svgMouseDowned);
-    // rotation
-    //let deg = volumeDial.
-    //volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
-    /* volumeSvg.style.webkitTransform = 'rotate('+deg+'deg)'; 
-     volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)'; 
-     volumeSvg.style.msTransform     = 'rotate('+deg+'deg)'; 
-     volumeSvg.style.oTransform      = 'rotate('+deg+'deg)'; */
-    //console.log(document.body.clientWidth); 
-    //console.log(document.body.clientHeight);
 }
 
 volumeSvg.addEventListener("mousedown", startSvgRotation);
@@ -86,23 +63,22 @@ volumeSvg.addEventListener("mousedown", startSvgRotation);
 let cursor_direction = "";
 let old_x = 0
 let old_y = 0
-let deg = 200;  // Default value for degree 
+let deg = 200;  // Default value for volume
+const deltaDeg = 12; // Increment or decrement 4, 8, 12
 
 const doSvgRotation = e => {
 
     if(svgMouseDowned == true) {
-        //console.log(`doSvGRotation mouse downed ${svgMouseDowned}`)
-        // last and final fix
 
-        let mouse_x = event.clientX;     // Get the horizontal mouse coordinate
-        let mouse_y = event.clientY;     // Get the vertical mouse coordinate
+        let mouse_x = e.pageX;     // Get the vertical mouse coordinate
+        let mouse_y = e.pageY;     // Get the vertical mouse coordinate
 
-        if (e.pageY < old_y ) {
+
+        if (mouse_y < old_y ) {
             direction="pos!";
-            console.log(direction);
-            if(deg < 354) {
-                deg+=6.0;
-                volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
+            if(deg < 360.0 - deltaDeg) {
+                deg+=deltaDeg;
+                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
 
                 if(audioContext) { // control the volume
                     let scaledVolume = (deg * 10.0)/360.0;
@@ -110,57 +86,55 @@ const doSvgRotation = e => {
                 }
             }  
         }
-        if (e.pageY > old_y) {
+        if (mouse_y > old_y) {
             direction="neg!";
-            console.log(direction);
-            if(deg > 6) {
-                deg-=6.0;
-                volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
+            if(deg > deltaDeg) {
+                deg-=deltaDeg;
+                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
     
                 if(audioContext) { 
                     let scaledVolume = (deg * 10.0)/360.0;
                     gainNode.gain.value = scaledVolume;
                 }
+            } else if(audioContext) {
+                let scaledVolume = 0.0;
+                gainNode.gain.value = scaledVolume;
             }
         }
   
-        old_x = e.pageX;
+
+        /* later!
+        if (mouse_x > old_x ) {
+            direction="pos!";
+            if(deg < 348) {
+                deg+=deltaDeg;
+                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
+
+                if(audioContext) { // control the volume
+                    let scaledVolume = (deg * 10.0)/360.0;
+                    gainNode.gain.value = scaledVolume;
+                }
+            }  
+        }
+        if (mouse_x < old_x) {
+            direction="neg!";
+            if(deg > 12) {
+                deg-=deltaDeg;
+                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
+    
+                if(audioContext) { 
+                    let scaledVolume = (deg * 10.0)/360.0;
+                    gainNode.gain.value = scaledVolume;
+                }
+            } else if(audioContext) {
+                let scaledVolume = 0.0;
+                gainNode.gain.value = scaledVolume;
+            }
+        }
+        */
+
+       // old_x = e.pageX; 
         old_y = e.pageY;
-        
-        /*
-        volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
-        */
-       // volumeSvg.style.transform = "rotate(" + Math.atan2(event.clientY - svgY, event.clientX - svgX) + "rad)";
-
-        /*
-        // attempting to fix from fiddle http://jsfiddle.net/JqBZb/
-        let mouse_x = event.clientX;     // Get the horizontal mouse coordinate
-        let mouse_y = event.clientY;     // Get the vertical mouse coordinate
-
-        console.log(`mouse_x ${mouse_x} and mouse_y ${mouse_y}`);
-
-        let center_x = volumeSvgDiv.offsetLeft + volumeSvgDiv.offsetWidth / 2; 
-        let center_y = volumeSvgDiv.offsetTop + volumeSvgDiv.offsetHeight / 2;
-        
-        let radCoords = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-        let deg = (radCoords * (180 / Math.PI) * -1) + 90; 
-        console.log(deg);
-        
-        volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
-        */
-
-        /* initial solution
-        const radCoords = Math.atan2(x, y);      // Maps X and Y coordinates to rad
-        let deg = radCoords * (180 / Math.PI);   // Converts rad to degrees
-        console.log(deg);
-        volumeSvg.style.transform       = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)';
-        volumeSvg.style.webkitTransform = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.mozTransform    = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.msTransform     = 'rotate('+deg+'deg)'; 
-        volumeSvg.style.oTransform      = 'rotate('+deg+'deg)'; */
     }
 }
 
