@@ -103,20 +103,18 @@ button:active {
 }
 
 #play_button {
+  display: inline-block;
   width: 60px;
   height: auto;
 }
 
-#controls {
+.controls {
   position: absolute;
   text-align: left;
   left: 20px;
   top: 90px;
-}
-
-#volume_dial {
-  width: 60px;
-  height: auto;
+  padding: 20px;
+  background-color: var(--base-color-s2);
 }
 
 #volume_svg {
@@ -127,6 +125,7 @@ button:active {
 }
 
 #volume_svg_div {
+  display: inline-block;
   margin-top: 20px;
 }
 
@@ -137,8 +136,10 @@ button:active {
   appearance: none;
   height: 30px;
   padding: 5px;
+  
 }
 
 .track_select_div {
+  margin-left: 6px;
   margin-top: 20px;
 }
