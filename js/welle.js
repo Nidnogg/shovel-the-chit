@@ -8,10 +8,7 @@ const audioElement = document.querySelector('audio');
 /* Track select code ****************************************************************/ 
 
 const track_select = document.querySelector('select');
-/*
-let selected_index = track_select.selectedIndex;
-console.log(`track_select ${track_select.options.item(selected_index).innerText}`);
-*/
+
 track_select.addEventListener('change', e => {
     
     if(e.target.value == 'lo-fi') {

@@ -98,7 +98,6 @@ button {
 	border: none;
 }
 
-
 button:active {
     transform: scale(0.99);
 }
@@ -110,6 +109,7 @@ button:active {
 
 #controls {
   position: absolute;
+  text-align: left;
   left: 20px;
   top: 90px;
 }
@@ -127,5 +127,18 @@ button:active {
 }
 
 #volume_svg_div {
+  margin-top: 20px;
+}
+
+#track_select {
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: var(--base-color-s4);
+  color: var(--base-color);
+  appearance: none;
+  height: 30px;
+  padding: 5px;
+}
+
+.track_select_div {
   margin-top: 20px;
 }
