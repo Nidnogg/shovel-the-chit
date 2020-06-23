@@ -12,7 +12,7 @@
 <body>
   <section className="main">
     <h3 classname="header">welle</h3>
-    <audio crossorigin="anonymous" type="audio/mpeg" src="https://firebasestorage.googleapis.com/v0/b/cloudtop-8de79.appspot.com/o/kuhnert_song_test.mp3?alt=media&token=cea62b08-1bfc-4bb7-bf32-bc91603b7a74">Failed to load audio</audio>
+    <audio crossorigin="anonymous" type="audio/mpeg" src="https://firebasestorage.googleapis.com/v0/b/cloudtop-8de79.appspot.com/o/serene_mind_waves.mp3?alt=media&token=dd379833-fe01-44da-a405-942cba30b3e2">Failed to load audio</audio>
     <div id="controls">
       <button data-playing="false" role="switch" aria-checked="false">
         <svg id=play_button xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90">
@@ -42,12 +42,8 @@
           </g>
         </svg>
         
-      
       </button> 
-      <br>
-     
-      <h2 id=volume></h2>
-
+      <br>      
       <div id=volume_svg_div>
         <svg id=volume_svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88.03 88.41">
           <title>volume</title>
@@ -68,33 +64,18 @@
             </g>
           </g>
         </svg>
-        
-        <!--
+      </div>
 
-       
-        <svg id=volume_svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88.03 88.37">
-          <title>volume</title>
-          <g id="Layer_5" data-name="Layer 5">
-            <path d="M44.59,1.4a44,44,0,1,1-44,44A44,44,0,0,1,44.59,1.4Z" transform="translate(-0.58 -1.06)" fill="#3d3c35"/>
-          </g>
-          <g id="Layer_1" data-name="Layer 1">
-            <line x1="44.78" y1="14.53" x2="44.78" y2="0.62" fill="none" stroke="#7d7b6d" stroke-miterlimit="10" stroke-width="7"/>
-          </g>
-          <g id="Layer_6" data-name="Layer 6">
-            <path d="M13.52,19.46C15.28,17.31,25,5.91,41.51,4.67c21.18-1.6,34.3,15,35.28,16.27" transform="translate(-0.58 -1.06)" fill="none" stroke="#7d7b6d" stroke-miterlimit="10" stroke-width="7"/>
-          </g>
-          <g id="text">
-            <g>
-              <path d="M60.62,54.65l-3.87-9.54,1.51.31-3.51,9.23h-3.1L57.7,40.79l6,13.86Z" transform="translate(-0.58 -1.06)" fill="#fcf9dc"/>
-              <path d="M51.08,48a6.65,6.65,0,0,1-.52,2.59,7.12,7.12,0,0,1-1.45,2.17A7,7,0,0,1,47,54.26a6.48,6.48,0,0,1-2.63.54,6.35,6.35,0,0,1-2.61-.54,7.14,7.14,0,0,1-3.65-3.66A6.49,6.49,0,0,1,37.54,48a6.61,6.61,0,0,1,.53-2.63,6.93,6.93,0,0,1,3.65-3.6,6.51,6.51,0,0,1,2.61-.52,6.64,6.64,0,0,1,2.63.52,6.85,6.85,0,0,1,2.15,1.45,7,7,0,0,1,1.45,2.15A6.78,6.78,0,0,1,51.08,48Zm-2.7,0a4.29,4.29,0,0,0-.32-1.65,4.18,4.18,0,0,0-2.19-2.26,4.16,4.16,0,0,0-1.63-.32A3.79,3.79,0,0,0,41.39,45a4.43,4.43,0,0,0-1.15,3,4.36,4.36,0,0,0,.32,1.67A4.43,4.43,0,0,0,41.42,51a4,4,0,0,0,4.49.91,3.92,3.92,0,0,0,1.3-.91,4.09,4.09,0,0,0,.86-1.36A4.35,4.35,0,0,0,48.38,48Z" transform="translate(-0.58 -1.06)" fill="#fcf9dc"/>
-              <path d="M34.93,54.65H32.32V43.92H26.09V41.4h8.84Z" transform="translate(-0.58 -1.06)" fill="#fcf9dc"/>
-            </g>
-          </g>
-        </svg>
-         -->
-      
+      <div>
+        <h4>Track select:</h4>
+        <select name="tracks" id="track_select">
+          <option value="lo-fi">lo-fi</option>
+          <option value="speedcore">speedcore</option>
+          <option value="jazz">jazz</option>           
+        </select>
       </div>
     </div>
+
   </section>
   <canvas id="canvas"> Failed to render canvas! </canvas>
   

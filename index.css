@@ -122,7 +122,7 @@ button:active {
 #volume_svg {
   width: 60px;
   height: auto;
-  transform: rotate(200deg);
+  transform: rotate(174deg);
   transition: all 0.1333s;
 }
 

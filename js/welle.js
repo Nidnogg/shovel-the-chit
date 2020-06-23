@@ -5,6 +5,30 @@ const audioContext = new AudioContext();
 // get the audio element
 const audioElement = document.querySelector('audio');
 
+/* Track select code ****************************************************************/ 
+
+const track_select = document.querySelector('select');
+/*
+let selected_index = track_select.selectedIndex;
+console.log(`track_select ${track_select.options.item(selected_index).innerText}`);
+*/
+track_select.addEventListener('change', e => {
+    
+    if(e.target.value == 'lo-fi') {
+        audioElement.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/cloudtop-8de79.appspot.com/o/serene_mind_waves.mp3?alt=media&token=dd379833-fe01-44da-a405-942cba30b3e2');
+    }
+
+    if(e.target.value == 'speedcore') {
+        audioElement.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/cloudtop-8de79.appspot.com/o/kuhnert_song_test.mp3?alt=media&token=cea62b08-1bfc-4bb7-bf32-bc91603b7a74');
+    }
+
+    if(e.target.value == 'jazz') {
+        audioElement.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/cloudtop-8de79.appspot.com/o/I_suspect_jazz.mp3?alt=media&token=5ba5c539-1cd6-47f0-9790-347445e8db6b');
+    }
+});
+
+/* Track select code ****************************************************************/ 
+
 // pass it into the audio context
 const track = audioContext.createMediaElementSource(audioElement);
 var analyser = audioContext.createAnalyser();
@@ -21,6 +45,7 @@ gainNode.connect(audioContext.destination);
 track.connect(gainNode);
 
 gainNode.gain.value = 1.0;
+
 // select our play button
 const playButton = document.querySelector('button');
 
@@ -46,8 +71,8 @@ audioElement.addEventListener('ended', () => {
   playButton.dataset.playing = 'false';
 }, false);
 
+/* Volume button code ****************************************************************/ 
 // select our volume button
-const volumeValue = document.getElementById('volume');
 const volumeSvg = document.getElementById('volume_svg');
 const volumeSvgDiv = document.getElementById('volume_svg_div');
 
@@ -59,107 +84,69 @@ const startSvgRotation = () => {
 
 volumeSvg.addEventListener("mousedown", startSvgRotation);
 
-
 let cursor_direction = "";
 let old_x = 0
 let old_y = 0
-let deg = 200;  // Default value for volume
-const deltaDeg = 12; // Increment or decrement 4, 8, 12
+let deg = 174;  // Default value for volume
+const deltaDeg = 9; // Increment or decrement 4, 8, 12
+let scaledVolume = 0;
 
 const doSvgRotation = e => {
 
     if(svgMouseDowned == true) {
 
-        let mouse_x = e.pageX;     // Get the vertical mouse coordinate
+        let mouse_x = e.pageX;     // Get the horizontal mouse coordinate
         let mouse_y = e.pageY;     // Get the vertical mouse coordinate
 
-
-        if (mouse_y < old_y ) {
-            direction="pos!";
-            if(deg < 360.0 - deltaDeg) {
-                deg+=deltaDeg;
+        if (mouse_y < old_y ) {    // Compare with previous mouse Y to figure out direction
+            cursor_direction="pos!";      // For debugging
+            if( deg < (360.0 - deltaDeg) ) {
+                deg+=deltaDeg;    // Increment volume with deltaDeg
                 volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
 
                 if(audioContext) { // control the volume
-                    let scaledVolume = (deg * 10.0)/360.0;
+                    scaledVolume = (deg * 10.0)/360.0;      // Convert degrees to 0-10 scale
                     gainNode.gain.value = scaledVolume;
                 }
             }  
         }
         if (mouse_y > old_y) {
-            direction="neg!";
+            cursor_direction="neg!"; // For debugging
             if(deg > deltaDeg) {
                 deg-=deltaDeg;
                 volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
     
                 if(audioContext) { 
-                    let scaledVolume = (deg * 10.0)/360.0;
+                    scaledVolume = (deg * 10.0)/360.0;
                     gainNode.gain.value = scaledVolume;
                 }
             } else if(audioContext) {
-                let scaledVolume = 0.0;
+                scaledVolume = 0.0;
                 gainNode.gain.value = scaledVolume;
             }
         }
-  
 
-        /* later!
-        if (mouse_x > old_x ) {
-            direction="pos!";
-            if(deg < 348) {
-                deg+=deltaDeg;
-                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
-
-                if(audioContext) { // control the volume
-                    let scaledVolume = (deg * 10.0)/360.0;
-                    gainNode.gain.value = scaledVolume;
-                }
-            }  
-        }
-        if (mouse_x < old_x) {
-            direction="neg!";
-            if(deg > 12) {
-                deg-=deltaDeg;
-                volumeSvg.style.transform = 'rotate('+deg+'deg)'; 
-    
-                if(audioContext) { 
-                    let scaledVolume = (deg * 10.0)/360.0;
-                    gainNode.gain.value = scaledVolume;
-                }
-            } else if(audioContext) {
-                let scaledVolume = 0.0;
-                gainNode.gain.value = scaledVolume;
-            }
-        }
-        */
-
-       // old_x = e.pageX; 
         old_y = e.pageY;
     }
 }
 
 const stopSvgRotation = () => {
-    //console.log(`stopSvGRotation mouse downed ${svgMouseDowned}`)
     if(svgMouseDowned == true) {
         svgMouseDowned = false;
-        //old_x = volumeSvgDiv.offsetLeft + volumeSvgDiv.offsetWidth / 2;
-        //old_y = volumeSvgDiv.offsetTop + volumeSvgDiv.offsetHeight / 2;
-    } else {
-        //console.log('nothing to do with svg');
-    }
-    //svgMouseDowned = false;
+    } 
 }
+
 document.addEventListener('mousemove', doSvgRotation);
 document.addEventListener('mouseup', stopSvgRotation);
 
 
-// main canvas function
+/* Main Canvas Function ****************************************************************/ 
+
 const canvas = document.getElementById('canvas');
-/*
+/* to implement for responsive screen size
 canvas.width = window.screen.availWidth; //document.body.clientWidth; 
 canvas.height = window.screen.availHeight; //document.body.clientHeight;
 */
-//canvas.width = window.screen.availWidth; //document.body.clientWidth; 
 canvas.width = 525;
 canvas.height = 255;
 canvasW = canvas.width;
@@ -171,7 +158,7 @@ const colorsArray = ['#4A4940', '#33322C', '#3D3C35', '#8A8878', '#C9C6AF', '#54
 const shuffledColors = shuffle(colorsArray); //shuffles colors every refresh
 
 //Main draw function for bar graphs
-function draw(){
+function draw() {
     var sliceWidth = bufferLength/16/2; //WARNING: 
     
     ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
@@ -190,6 +177,7 @@ function draw(){
         ctxCanvas.fillRect(i * 33, canvas.height, 30, -sum); // to view without pressing play change sum
     }
 }
+
 setInterval(draw, 16); //calls draw every X ms
 
 function shuffle(array) {
