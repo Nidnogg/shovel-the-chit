@@ -78,7 +78,8 @@ body {
 canvas {
   position: absolute;
   bottom: 0;
-  left: calc(50% - 262.5px);
+  /*left: calc(50% - 262.5px);*/
+  left: 0;
   z-index: -1;
 }
 
@@ -121,7 +122,7 @@ button:active {
   width: 60px;
   height: auto;
   transform: rotate(174deg);
-  transition: all 0.1333s;
+  /*transition: all 0.1333s;*/
 }
 
 #volume_svg_div {

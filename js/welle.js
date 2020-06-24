@@ -82,10 +82,9 @@ const startSvgRotation = () => {
 volumeSvg.addEventListener("mousedown", startSvgRotation);
 
 let cursor_direction = "";
-let old_x = 0
 let old_y = 0
 let deg = 174;  // Default value for volume
-const deltaDeg = 9; // Increment or decrement 4, 8, 12
+const deltaDeg = 6; // Increment or decrement 4, 8, 12
 let scaledVolume = 0;
 
 const doSvgRotation = e => {
@@ -141,10 +140,11 @@ document.addEventListener('mouseup', stopSvgRotation);
 
 const canvas = document.getElementById('canvas');
 /* to implement for responsive screen size
-canvas.width = window.screen.availWidth; //document.body.clientWidth; 
+canvas.width = 525;
 canvas.height = window.screen.availHeight; //document.body.clientHeight;
 */
-canvas.width = 525;
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+canvas.width = vw; //document.body.clientWidth; 
 canvas.height = 255;
 canvasW = canvas.width;
 canvasH = canvas.height;
@@ -155,23 +155,28 @@ const colorsArray = ['#4A4940', '#33322C', '#3D3C35', '#8A8878', '#C9C6AF', '#54
 const shuffledColors = shuffle(colorsArray); //shuffles colors every refresh
 
 //Main draw function for bar graphs
+
+
 function draw() {
-    var sliceWidth = bufferLength/16/2; //WARNING: 
-    
+    const sliceWidth = bufferLength/16/2; //WARNING: 
+    const numBars = canvasW/sliceWidth;
     ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
     analyser.getByteFrequencyData(dataArray);
 
     //16 rectangle loop
-    for(let i = 0; i < 16; i++) {
-
-        var sum = 0;
+    let sum = 0;
+    for(let i = 0; i < numBars; i++) {
+        sum = 0;
         for(let j = 0; j < sliceWidth; j++){
             sum += dataArray[j + i * sliceWidth];
         }
-        sum = sum/sliceWidth/2;
+
+        sum = sum/sliceWidth ;
 
         ctxCanvas.fillStyle = colorsArray[i];
-        ctxCanvas.fillRect(i * 33, canvas.height, 30, -sum); // to view without pressing play change sum
+        //ctxCanvas.fillRect(i * 33, canvas.height, 30, -sum); // to view without pressing play change sum
+        ctxCanvas.fillRect(i * 40, canvas.height, 30, -sum); // to view without pressing play change sum
+        
     }
 }
 
