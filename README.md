@@ -1,17 +1,15 @@
-# welle
-A barebones Audio visualizer app.
+# shovel the chit
+Dig yourself out of the chit for $29.99.
 
-Built by me and fellow [fkuhnert](https://github.com/fkuhnert).
+Built by me and fellow [David Lynch](https://www.youtube.com/watch?v=ifGdAcDryXk).
 
-[Live demo!](https://nidnogg.github.io/welle/)
-## Usage
+[Live demo!](https://nidnogg.github.io/shovel-the-chit/)
+## How to dig
 
-```npm run dev``` for development
-
- ```npm run build``` for production
+```npm run dev``` for digging
 
 ## Dependencies 
 
-None! 
+None! lol
 
 
