@@ -138,7 +138,7 @@ document.addEventListener('mouseup', stopSvgRotation);
 
 /* Main Canvas Function ****************************************************************/ 
 
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById('welle');
 /* to implement for responsive screen size
 canvas.width = 525;
 canvas.height = window.screen.availHeight; //document.body.clientHeight;
